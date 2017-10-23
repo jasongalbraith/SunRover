@@ -1,7 +1,5 @@
 /* MotorController
  * Controls arduinos connected to motors through serial connection
- * 
- * Code by Vikram Kashyap, September 2017
  */
 
 package rover;
@@ -32,8 +30,8 @@ public class MotorController {
 			//Check if valid
 			if (s.isGood()) {
 				//Get id
-				String id;
-				if (!s.sendMessage("identify".toCharArray()))
+				byte[] id;
+				if (!s.sendMessage("identify".getBytes()))
 					continue;
 				id = s.readMessage();
 				if (!s.isGood())
@@ -43,11 +41,11 @@ public class MotorController {
 				if (id == null) {
 					s.close();
 				}
-				else if (forward == null && id.equals("forward_")) {
+				else if (forward == null && new String(id).equals("forward_")) {
 					forward = s;
 					System.out.println("Forward connected");
 				}
-				else if (backward == null && id.equals("backward")) {
+				else if (backward == null && new String(id).equals("backward")) {
 					backward = s;
 					System.out.println("Backward connected");
 				}
@@ -70,11 +68,26 @@ public class MotorController {
 		String s = Integer.toString(speed);
 		forward.sendMessage(s + "  " + s);
 		backward.sendMessage(s + "  " + s);*/
-		char[] message = {(char) speed, (char) speed, 1, 1, 1, 1, 1, 1};
-		System.out.print("Message:" + message + " Len: " + Integer.toString(message.length));
+		byte[] message = {(byte) speed, (byte) speed, 1, 1, 1, 1, 1, 1};
+		System.out.println("Message:" + message + " Len: " + Integer.toString(message.length));
 		forward.sendMessage(message);
 		backward.sendMessage(message);
-		System.out.println(forward.readMessage());
+		System.out.println(forward.readMessage()[0]);
+	}
+	
+	//Set all motor powers
+	public void setMotors(byte lf, byte rf, byte lb, byte rb) {
+		byte[] message = {lf, rf, lb, rb, 1, 1, 1, 1};
+		forward.sendMessage(message);
+		backward.sendMessage(message);
+	}
+	
+	//Send message to arduinos
+	public void sendMessage(byte[][] message) {
+		System.out.println("Message:" + message + " Len: " + Integer.toString(message.length));
+		forward.sendMessage(message[0]);
+		backward.sendMessage(message[1]);
+		System.out.println(forward.readMessage()[0]);
 	}
 	
 	/*
@@ -85,13 +98,13 @@ public class MotorController {
 		//backward.sendMessage("-" + s + " " + s);
 	}
 	
+	
 	//On-point right turn (left wheels forward, right wheels backward)
 	public void turnRight(int speed) {
 		String s = Integer.toString(speed);
 		forward.sendMessage(s + " -" + s);
 		backward.sendMessage(s + " -" + s);
-	}
-	*/
+	}*/
 	
 	//Cleanup the connections to motor controllers
 	public boolean close() {

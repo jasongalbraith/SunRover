@@ -1,7 +1,5 @@
 /*Controller
  * Main execution thread for remote controlling computer
- * 
- * Code by Vikram Kashyap, September 2017
  */
 
 package control;
@@ -9,11 +7,15 @@ package control;
 import java.util.Scanner;
 
 public class Controller {
+	Transciever tr;
+	ManualCommander mc;
 
 	public Controller() {
 		Scanner stdin = new Scanner(System.in);
-		Transciever tr = new Transciever("sharky", 1300);
 		boolean done = false;
+		
+		tr = new Transciever("sharky", 1300);
+		mc = new ManualCommander(this);
 		
 		if (!tr.isGood()) {
 			System.out.println("Couldn't open port");
@@ -41,6 +43,10 @@ public class Controller {
 	
 	public static void main(String[] args) {
 		new Controller();
+	}
+
+	public void recieveCommand(String command) {
+		tr.sendMessage(command);
 	}
 	
 }

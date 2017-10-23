@@ -1,7 +1,8 @@
 /* CommandTransmitter
- * Sends strings through a socket connection to the on-broad SunRover brain computer
  * 
- * Code by Vikram Kashyap, September 2017
+ * OUTDATED
+ * 
+ * Sends strings through a socket connection to the on-broad SunRover brain computer
  */
 
 package control;

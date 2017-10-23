@@ -1,3 +1,7 @@
+/*Transciever
+ * Transmits and receives messages from Server on SunRover
+ */
+
 package control;
 
 import java.io.BufferedReader;

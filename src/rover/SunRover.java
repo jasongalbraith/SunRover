@@ -1,7 +1,5 @@
 /* SunRover
  * Main execution thread for the on-board SunRover brain computer
- * 
- * Code by Vikram Kashyap, September 2017
  */
 
 package rover;
@@ -10,6 +8,7 @@ public class SunRover {
 	public static void main(String[] args) {
 		MotorController mc = new MotorController();
 		Server server = new Server(1300);
+		DirectionDriver dd = new DirectionDriver(mc);
 		boolean done = false;
 		
 		server.start();
@@ -23,7 +22,8 @@ public class SunRover {
 				
 				if (input != null) {
 					System.out.println(input);
-					mc.go(Integer.parseInt(input));
+					dd.input(input);
+					//mc.go(Integer.parseInt(input));
 				}
 			}
 		}

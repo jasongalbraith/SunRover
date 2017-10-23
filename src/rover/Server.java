@@ -1,7 +1,5 @@
 /* Server
  * Serves a socket to connect to SunRover
- * 
- * Code by Vikram Kashyap, October 2017
  */
 
 package rover;

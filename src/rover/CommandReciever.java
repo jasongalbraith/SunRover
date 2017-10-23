@@ -1,7 +1,8 @@
 /* CommandReciever
- * Inputs strings through a socket connection to the controlling computer
  * 
- * Code by Vikram Kashyap, September 2017
+ * OUTDATED
+ * 
+ * Inputs strings through a socket connection to the controlling computer
  */
 
 package rover;

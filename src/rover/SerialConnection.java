@@ -1,7 +1,5 @@
 /* SerialConnection
  * Makes a serial connection to a port and allows strings to be sent and recieved
- * 
- * Code by Vikram Kashyap, September 2017
  */
 
 package rover;
@@ -31,9 +29,9 @@ public class SerialConnection {
 	}
 	
 	//Send a string, returns state
-	public boolean sendMessage(char[] s) {
+	public boolean sendMessage(byte[] s) {
 		try {
-			serialPort.writeBytes(new String(s).getBytes());
+			serialPort.writeBytes(s);
 		} catch (SerialPortException e) {
 			good = false;
 		}
@@ -41,11 +39,11 @@ public class SerialConnection {
 	}
 	
 	//Read a string, should check state afterwards
-	public String readMessage() {
-		String s;
+	public byte[] readMessage() {
+		byte[] s;
 		try {
 			//s = serialPort.readString(9, 10000);
-			s = new String(serialPort.readBytes(8, 10000));
+			s = serialPort.readBytes(8, 10000);
 		} catch (SerialPortException e) {
 			good = false;
 			s = null;
