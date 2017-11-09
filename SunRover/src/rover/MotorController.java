@@ -9,6 +9,10 @@ import java.util.concurrent.TimeUnit;
 
 
 public class MotorController {
+	public static final int FOR_LEFT = 0;
+	public static final int FOR_RIGHT = 1;
+	public static final int BACK_LEFT = 2;
+	public static final int BACK_RIGHT = 3;
 
 	SerialConnection forward= null, backward = null;
 	boolean good = true;
