@@ -6,9 +6,9 @@ package rover;
 
 public class SunRover {
 	public static void main(String[] args) {
-		MotorController mc = new MotorController();
+		//MotorController mc = new MotorController();
 		Server server = new Server(1300);
-		DirectionDriver dd = new DirectionDriver(mc);
+		//DirectionDriver dd = new DirectionDriver(mc);
 		boolean done = false;
 		
 		server.start();
@@ -22,7 +22,7 @@ public class SunRover {
 				
 				if (input != null) {
 					System.out.println(input);
-					dd.input(input);
+					//dd.input(input);
 					//mc.go(Integer.parseInt(input));
 				}
 			}
@@ -30,7 +30,7 @@ public class SunRover {
 		
 		System.out.print("Closing");
 		
-		mc.close();
+		//mc.close();
 		server.close();
 	}
 }

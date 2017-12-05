@@ -18,7 +18,7 @@ public class SunRoverWebcam implements Runnable {
 
 	final int FIRST_WEBCAM = 0;
 	final int SECOND_WEBCAM = 1;
-	int threadToStart = FIRST_WEBCAM;
+	int threadToStart = SECOND_WEBCAM;
 	ServerSocket server;
 	Socket client;
 	ObjectOutputStream stream1;

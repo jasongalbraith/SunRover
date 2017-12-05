@@ -5,23 +5,19 @@
 package control;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.Arrays;
 
-import javax.swing.JFrame;
+import tools.DataHandler;
+import tools.DataReciever;
 
-public class ManualCommander extends JFrame implements KeyListener{
+public class ManualCommander extends Commander implements DataReciever{
+	public static final int[] input_types = {DataHandler.DTYPE_KEYPRESS_SOURCE1};
 	String command;
-	Controller controller;
 	
 	public ManualCommander(Controller c) {
-		controller = c;
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		addKeyListener(this);
-		setVisible(true);
+		super(c);
 	}
 
-	public void keyPressed(KeyEvent k) {
+	private void processKey(KeyEvent k) {
 		
 		if (k.getKeyCode() == KeyEvent.VK_UP) {
 			command = "UP";
@@ -39,18 +35,20 @@ public class ManualCommander extends JFrame implements KeyListener{
 			command = "STOP";
 		}
 		
-		sendCommand();
+		sendCommand(command);
 	}
 
-	public void keyReleased(KeyEvent k) {
-		/*Do nothing*/
-	}
-
-	public void keyTyped(KeyEvent k) {
-		/*Do nothing*/
+	public int[] getDataTypes() {
+		return input_types;
 	}
 	
-	private void sendCommand() {
-		controller.recieveCommand(command);
+	public void pump() {
+		sendCommand(command);
+	}
+
+	public void recieveData(int type, Object data) {
+		if (type == input_types[0]) {
+			processKey((KeyEvent) data);
+		}
 	}
 }

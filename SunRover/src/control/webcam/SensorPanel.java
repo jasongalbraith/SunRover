@@ -22,13 +22,13 @@ public class SensorPanel extends JPanel{
 		g.drawLine(80, 30, 80, 50);
 		g.drawLine(80, 30, 85, 35);
 		g.drawLine(80, 30, 75, 35);
-		g.drawString(sensors[SunRoverSource.FORWARD]+" F", 80, 10);
-		g.drawString(sensors[SunRoverSource.LEFT]+" L", 20, 90);
-		g.drawString(sensors[SunRoverSource.RIGHT]+" R", 120, 90);
-		g.drawString(sensors[SunRoverSource.BACKWARD]+" B", 80, 150);
-		g.drawString(sensors[SunRoverSource.FORWARD_DOWN]+" FD", 80, 20);
-		g.drawString(sensors[SunRoverSource.BACKWARD_DOWN]+" BD", 80, 160);
-		g.drawString(sensors[SunRoverSource.COMPASS]+" COM", 60, 90);
+		g.drawString(sensors[WebcamDisplay.FORWARD]+" F", 80, 10);
+		g.drawString(sensors[WebcamDisplay.LEFT]+" L", 20, 90);
+		g.drawString(sensors[WebcamDisplay.RIGHT]+" R", 120, 90);
+		g.drawString(sensors[WebcamDisplay.BACKWARD]+" B", 80, 150);
+		g.drawString(sensors[WebcamDisplay.FORWARD_DOWN]+" FD", 80, 20);
+		g.drawString(sensors[WebcamDisplay.BACKWARD_DOWN]+" BD", 80, 160);
+		g.drawString(sensors[WebcamDisplay.COMPASS]+" COM", 60, 90);
 	}
 	
 }

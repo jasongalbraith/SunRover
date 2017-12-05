@@ -19,7 +19,7 @@ public class MotorController {
 	
 	//Setup the serial controllers
 	public MotorController() {
-		final String[] comports = {"/dev/ttyUSB0", "/dev/ttyUSB1"};
+		final String[] comports = {"COM1", "COM2", "COM3", "COM4", "COM5"};
 		
 		//Try to find serial connections
 		for (String port : comports) {

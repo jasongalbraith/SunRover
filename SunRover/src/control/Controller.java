@@ -6,16 +6,27 @@ package control;
 
 import java.util.Scanner;
 
+import control.webcam.WebcamDisplay;
+import tools.DataHandler;
+
 public class Controller {
+	ControlFrame cf;
 	Transciever tr;
 	ManualCommander mc;
+	DataHandler dh;
+	WebcamDisplay wd;
 
 	public Controller() {
 		Scanner stdin = new Scanner(System.in);
 		boolean done = false;
 		
-		tr = new Transciever("sharky", 1300);
+		tr = new Transciever("SHS-10L4331FD", 1300);
 		mc = new ManualCommander(this);
+		dh = new DataHandler();
+		cf = new ControlFrame(dh);
+		wd = new WebcamDisplay(cf);
+		
+		dh.addReciever(mc);
 		
 		if (!tr.isGood()) {
 			System.out.println("Couldn't open port");
