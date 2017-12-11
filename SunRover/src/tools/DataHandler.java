@@ -37,6 +37,10 @@ public class DataHandler {
 			}
 		}
 		
+		for (int type : dr.getDataTypes()) {
+			typemap.get(type).add(dr);
+		}
+		
 		recievers.add(dr);
 		
 		return true;
@@ -44,6 +48,7 @@ public class DataHandler {
 	
 	public void pushData(int type, Object data) {
 		for (DataReciever rec : typemap.get(type)) {
+			System.out.println("DH: sent data");
 			rec.recieveData(type, data);
 		}
 	}

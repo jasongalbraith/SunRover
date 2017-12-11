@@ -22,7 +22,7 @@ import net.java.games.input.ControllerEnvironment;
 public class WebcamDisplay implements Runnable, KeyListener {
 
 	final static String IP_CONTROLS = "";
-	final static String IP_WEBCAM = "";
+	final static String IP_WEBCAM = "SHS-10L4331FD";
 	final static boolean CONTROLS_ENABLED = false;
 	final static boolean WEBCAM_ENABLED = true;
 	final static boolean AUDIO_ENABLED = false;

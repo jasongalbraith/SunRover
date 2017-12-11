@@ -24,7 +24,7 @@ public class Controller {
 		mc = new ManualCommander(this);
 		dh = new DataHandler();
 		cf = new ControlFrame(dh);
-		wd = new WebcamDisplay(cf);
+		//wd = new WebcamDisplay(cf);
 		
 		dh.addReciever(mc);
 		
@@ -57,6 +57,7 @@ public class Controller {
 	}
 
 	public void recieveCommand(String command) {
+		System.out.println(command);
 		tr.sendMessage(command);
 	}
 	

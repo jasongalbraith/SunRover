@@ -20,10 +20,13 @@ public class ControlFrame extends JFrame implements KeyListener, DataSource {
 		setVisible(true);
 		datahandler = dh;
 		datahandler.addSource(this);
+		
+		addKeyListener(this);
 	}
 
 	public void keyPressed(KeyEvent e) {
 		datahandler.pushData(datatype, e);
+		System.out.println("CF: keypressed");
 	}
 
 	public void keyReleased(KeyEvent e) {
