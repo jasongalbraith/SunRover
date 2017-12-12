@@ -6,15 +6,17 @@ package rover;
 
 import java.util.Arrays;
 
-public class DirectionDriver {
+import tools.DataHandler;
+
+public class DirectionDriver extends Driver{
 	byte[][] command = new byte[2][8];
 	MotorController mc;
 	
-	public DirectionDriver(MotorController motorcontroller) {
-		mc = motorcontroller;
+	public DirectionDriver(DataHandler dh) {
+		super(dh);
 	}
 
-	public void input(String s) {
+	public void inputCommand(String s) {
 		Arrays.fill(command[0], (byte) 1);
 		Arrays.fill(command[1], (byte) 1);
 		
@@ -42,11 +44,7 @@ public class DirectionDriver {
 			command[1] = command[0];
 		}
 		
-		sendMessage();
+		sendMotorVals(command);
 	}
 	
-	private void sendMessage() {
-		System.out.println("sent");
-		mc.sendMessage(command);
-	}
 }

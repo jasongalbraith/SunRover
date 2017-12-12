@@ -4,21 +4,43 @@
 
 package rover;
 
-public class Driver {
-	public static final String NAME = "DEAD_DRIVER";
-	public static final String[] REQUESTED_DATA = {};
+import tools.DataHandler;
+import tools.DataReciever;
+import tools.DataSource;
+
+public class Driver implements DataReciever, DataSource{
+	private static final int[] REQUESTED_DATA = {DataHandler.DTYPE_COMMANDERSTRING};
+	private static final int OFFERED_DATA = DataHandler.DTYPE_MOTORVALS;
 	
-	public Driver() {
+	private DataHandler datahandler;
+		
+	public Driver(DataHandler dh) {
+		datahandler = dh;
 	}
 	
-	//Take in data to process
-	public void inputData(Object data) {
+	//Process a command
+	protected void inputCommand(String command) {
 		
 	}
 	
-	//Give a command
-	public byte[] formulateCommand() {
-		byte[] command = {0, 0, 0, 0};
-		return command;
+	protected void sendMotorVals(byte[][] motorvals) {
+		if (motorvals.length == 2 && motorvals[0].length == 2 && motorvals[1].length == 2)
+			datahandler.pushData(DataHandler.DTYPE_MOTORVALS, motorvals);
 	}
+
+	//Request data
+	public int[] getDataTypes() {
+		return REQUESTED_DATA;
+	}
+
+	//Take in data
+	public void recieveData(int type, Object data) {
+		if (type == DataHandler.DTYPE_COMMANDERSTRING)
+			inputCommand((String) data);
+	}
+
+	public int getDataType() {
+		return OFFERED_DATA;
+	}
+	
 }

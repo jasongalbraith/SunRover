@@ -7,12 +7,16 @@ package rover;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import tools.DataHandler;
+import tools.DataReciever;
 
-public class MotorController {
+
+public class MotorController implements DataReciever{
 	public static final int FOR_LEFT = 0;
 	public static final int FOR_RIGHT = 1;
 	public static final int BACK_LEFT = 2;
 	public static final int BACK_RIGHT = 3;
+	private static final int[] REQUESTED_DATA = {DataHandler.DTYPE_MOTORVALS};
 
 	SerialConnection forward= null, backward = null;
 	boolean good = true;
@@ -113,6 +117,17 @@ public class MotorController {
 	//Cleanup the connections to motor controllers
 	public boolean close() {
 		return forward.close() && backward.close();
+	}
+
+	public int[] getDataTypes() {
+		return REQUESTED_DATA;
+	}
+
+	public void recieveData(int type, Object data) {
+		if (type == DataHandler.DTYPE_MOTORVALS) {
+			byte[][] motorvals = (byte[][]) data;
+			setMotors(motorvals[0][0], motorvals[0][1], motorvals[1][0], motorvals[1][1]);
+		}
 	}
 	
 }

@@ -14,7 +14,7 @@ import org.bytedeco.javacv.OpenCVFrameGrabber;
 import static org.bytedeco.javacpp.opencv_core.cvFlip;
 import control.webcam.RoverImage;
 
-public class SunRoverWebcam implements Runnable {
+public class WebcamServer implements Runnable {
 
 	final int FIRST_WEBCAM = 0;
 	final int SECOND_WEBCAM = 1;
@@ -32,7 +32,7 @@ public class SunRoverWebcam implements Runnable {
 	OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
 	Java2DFrameConverter paintConverter = new Java2DFrameConverter();
 
-	public SunRoverWebcam() {
+	public WebcamServer() {
 		try {
 			server = new ServerSocket(1301);
 			System.out.println("Waiting...");
@@ -47,10 +47,6 @@ public class SunRoverWebcam implements Runnable {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-	}
-
-	public static void main(String[] args) {
-		new SunRoverWebcam();
 	}
 
 	public void run() {

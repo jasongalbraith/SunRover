@@ -4,12 +4,22 @@
 
 package rover;
 
+import rover.webcam.WebcamServer;
+import tools.DataHandler;
+
 public class SunRover {
 	public static void main(String[] args) {
+		DataHandler dh = new DataHandler();
 		//MotorController mc = new MotorController();
 		Server server = new Server(1300);
-		//DirectionDriver dd = new DirectionDriver(mc);
+		Driver driver = new DirectionDriver(dh);
+		WebcamServer ws = new WebcamServer();
 		boolean done = false;
+		
+		dh.addSource(server);
+		dh.addSource(driver);
+		dh.addReciever(driver);
+		//dh.addReciever(mc);
 		
 		server.start();
 		
@@ -21,9 +31,7 @@ public class SunRover {
 				input = server.readLine();
 				
 				if (input != null) {
-					System.out.println(input);
-					//dd.input(input);
-					//mc.go(Integer.parseInt(input));
+					dh.pushData(DataHandler.DTYPE_COMMANDERSTRING, input);
 				}
 			}
 		}

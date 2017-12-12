@@ -13,7 +13,10 @@ import java.net.Socket;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Server extends Thread{
+import tools.DataHandler;
+import tools.DataSource;
+
+public class Server extends Thread implements DataSource{
 	
 	ServerSocket serversocket;
 	Socket clientsocket;
@@ -105,5 +108,9 @@ public class Server extends Thread{
 				}
 			}
 		}
+	}
+
+	public int getDataType() {
+		return DataHandler.DTYPE_COMMANDERSTRING;
 	}
 }
