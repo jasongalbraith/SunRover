@@ -9,6 +9,8 @@ import java.util.Set;
 
 public class DataHandler {
 	public static final int DTYPE_KEYPRESS_SOURCE1 = 0;
+	public static final int DTYPE_COMMANDERSTRING = 1;
+	public static final int DTYPE_MOTORVALS = 1;
 	
 	List<DataSource> sources;
 	List<DataReciever> recievers;
