@@ -29,7 +29,7 @@ public class ImagePanel extends JPanel implements Runnable {
 	final int FIRST_WEBCAM = 0;
 	final int SECOND_WEBCAM = 1;
 	final int OUTPUT = 2;
-	int threadToRun = FIRST_WEBCAM;
+	int threadToRun = SECOND_WEBCAM;
 	boolean running = true;
 	JSlider scaleBar;
 	double scaleValue = 0.25;
@@ -67,7 +67,6 @@ public class ImagePanel extends JPanel implements Runnable {
 	
 	public void run() {
 		if (threadToRun == FIRST_WEBCAM) {
-			threadToRun = SECOND_WEBCAM;
 			Thread t = new Thread(this);
 			t.start();
 			while (running == true) {

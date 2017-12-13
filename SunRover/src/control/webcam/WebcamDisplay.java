@@ -22,7 +22,7 @@ import net.java.games.input.ControllerEnvironment;
 public class WebcamDisplay implements Runnable, KeyListener {
 
 	final static String IP_CONTROLS = "";
-	final static String IP_WEBCAM = "SHS-10L4331FD";
+	final static String IP_WEBCAM = "sharky";
 	final static boolean CONTROLS_ENABLED = false;
 	final static boolean WEBCAM_ENABLED = true;
 	final static boolean AUDIO_ENABLED = false;
@@ -62,7 +62,7 @@ public class WebcamDisplay implements Runnable, KeyListener {
 	Container north = new Container();
 	Container buttons = new Container();
 	SensorPanel spanel = new SensorPanel(sensors);
-	ImagePanel ipanel = new ImagePanel(jf, scaleBar);
+	ImagePanel ipanel;
 	final int READ = 0;
 	final int WRITE = 1;
 	int threadToStart = READ;
@@ -70,6 +70,7 @@ public class WebcamDisplay implements Runnable, KeyListener {
 	
 	public WebcamDisplay(JFrame frame) {
 		jf = frame;
+		ipanel = new ImagePanel(jf, scaleBar);
 		startTime = System.currentTimeMillis();
 		jf.setSize(800,600);
 		jf.setLayout(new GridLayout(2,1));

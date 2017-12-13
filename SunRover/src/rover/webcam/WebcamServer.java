@@ -10,8 +10,9 @@ import javax.swing.ImageIcon;
 
 import org.bytedeco.javacv.*;
 import org.bytedeco.javacpp.opencv_core.*;
-import org.bytedeco.javacv.OpenCVFrameGrabber;
+import org.bytedeco.javacv.FrameGrabber;
 import static org.bytedeco.javacpp.opencv_core.cvFlip;
+
 import control.webcam.RoverImage;
 
 public class WebcamServer implements Runnable {
@@ -24,13 +25,14 @@ public class WebcamServer implements Runnable {
 	ObjectOutputStream stream1;
 	ObjectOutputStream stream2;
 	FrameGrabber grabber1 = new OpenCVFrameGrabber(0);
-	FrameGrabber grabber2 = new OpenCVFrameGrabber(1);
+	FrameGrabber grabber2 = new OpenCVFrameGrabber(0);
 	BufferedImage bimg1;
 	BufferedImage bimg2;
 	RoverImage rimg1;
 	RoverImage rimg2;
 	OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
 	Java2DFrameConverter paintConverter = new Java2DFrameConverter();
+	
 
 	public WebcamServer() {
 		try {

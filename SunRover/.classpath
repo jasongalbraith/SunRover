@@ -5,8 +5,14 @@
 	<classpathentry kind="lib" path="lib/jssc.jar"/>
 	<classpathentry kind="lib" path="lib/javacpp.jar"/>
 	<classpathentry kind="lib" path="lib/javacv.jar"/>
-	<classpathentry kind="lib" path="lib/opencv-linux-x86_64.jar"/>
-	<classpathentry kind="lib" path="lib/opencv.jar"/>
 	<classpathentry kind="lib" path="lib/jinput.jar"/>
+	<classpathentry kind="lib" path="lib/opencv.jar"/>
+	<classpathentry kind="lib" path="lib/opencv3/opencv-331.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="SunRover/lib/opencv3/x64"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/opencv-windows-x86_64.jar"/>
+	<classpathentry kind="lib" path="lib/javacv-windows-x86_64.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
