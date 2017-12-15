@@ -23,7 +23,7 @@ public class WebcamServer implements Runnable {
 	ObjectOutputStream stream1;
 	ObjectOutputStream stream2;
 	FrameGrabber grabber1 = new OpenCVFrameGrabber(0);
-	FrameGrabber grabber2 = new OpenCVFrameGrabber(0);
+	FrameGrabber grabber2 = new OpenCVFrameGrabber(1);
 	BufferedImage bimg1;
 	BufferedImage bimg2;
 	RoverImage rimg1;
@@ -59,7 +59,7 @@ public class WebcamServer implements Runnable {
 			}
 		}
 		
-		else if (threadToStart == FIRST_WEBCAM) {
+		if (threadToStart == FIRST_WEBCAM) {
 			try {
 				// Start grabber to capture video
 				grabber1.start();
