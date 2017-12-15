@@ -20,7 +20,7 @@ public class Controller {
 		Scanner stdin = new Scanner(System.in);
 		boolean done = false;
 		
-		tr = new Transciever("sharky", 1300);
+		tr = new Transciever("SHS-10L4331FD", 1300);
 		mc = new ManualCommander(this);
 		dh = new DataHandler();
 		cf = new ControlFrame(dh);

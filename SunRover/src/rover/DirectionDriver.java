@@ -9,7 +9,7 @@ import java.util.Arrays;
 import tools.DataHandler;
 
 public class DirectionDriver extends Driver{
-	byte[][] command = new byte[2][8];
+	byte[][] command = new byte[2][2];
 	MotorController mc;
 	
 	public DirectionDriver(DataHandler dh) {

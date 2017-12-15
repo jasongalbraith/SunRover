@@ -4,8 +4,6 @@ import java.awt.image.BufferedImage;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.TimeUnit;
-
 import javax.swing.ImageIcon;
 
 import org.bytedeco.javacv.*;
@@ -32,18 +30,13 @@ public class WebcamServer implements Runnable {
 	RoverImage rimg2;
 	OpenCVFrameConverter.ToIplImage converter = new OpenCVFrameConverter.ToIplImage();
 	Java2DFrameConverter paintConverter = new Java2DFrameConverter();
+	boolean connected = false;
 	
 
 	public WebcamServer() {
 		try {
 			server = new ServerSocket(1301);
 			System.out.println("Waiting...");
-			client = server.accept();
-			System.out.println("Got Socket 1");
-			stream1 = new ObjectOutputStream(client.getOutputStream());
-			client = server.accept();
-			System.out.println("Got Socket 2");
-			stream2 = new ObjectOutputStream(client.getOutputStream());
 			Thread t = new Thread(this);
 			t.start();
 		} catch (Exception ex) {
@@ -52,7 +45,21 @@ public class WebcamServer implements Runnable {
 	}
 
 	public void run() {
-		if (threadToStart == FIRST_WEBCAM) {
+		if (connected == false) {
+			try {
+				client = server.accept();
+				System.out.println("Got Socket 1");
+				stream1 = new ObjectOutputStream(client.getOutputStream());
+				client = server.accept();
+				System.out.println("Got Socket 2");
+				stream2 = new ObjectOutputStream(client.getOutputStream());
+				connected = true;
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		}
+		
+		else if (threadToStart == FIRST_WEBCAM) {
 			try {
 				// Start grabber to capture video
 				grabber1.start();
