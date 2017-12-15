@@ -10,7 +10,7 @@ import tools.DataHandler;
 public class SunRover {
 	public static void main(String[] args) {
 		DataHandler dh = new DataHandler();
-		//MotorController mc = new MotorController();
+		MotorController mc = new MotorController();
 		Server server = new Server(1300);
 		Driver driver = new DirectionDriver(dh);
 		WebcamServer ws = new WebcamServer();
@@ -19,7 +19,7 @@ public class SunRover {
 		dh.addSource(server);
 		dh.addSource(driver);
 		dh.addReciever(driver);
-		//dh.addReciever(mc);
+		dh.addReciever(mc);
 		
 		server.start();
 		
@@ -38,7 +38,7 @@ public class SunRover {
 		
 		System.out.print("Closing");
 		
-		//mc.close();
+		mc.close();
 		server.close();
 	}
 }
