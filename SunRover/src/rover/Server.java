@@ -18,6 +18,8 @@ import tools.DataSource;
 
 public class Server extends Thread implements DataSource{
 	
+	private static final int[] OFFERED_TYPES = {DataHandler.DTYPE_COMMANDERSTRING};
+	
 	ServerSocket serversocket;
 	Socket clientsocket;
 	PrintWriter out;
@@ -110,7 +112,7 @@ public class Server extends Thread implements DataSource{
 		}
 	}
 
-	public int getDataType() {
-		return DataHandler.DTYPE_COMMANDERSTRING;
+	public int[] getOfferedDataTypes() {
+		return OFFERED_TYPES;
 	}
 }

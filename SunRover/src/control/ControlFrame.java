@@ -12,7 +12,7 @@ import tools.DataSource;
 
 public class ControlFrame extends JFrame implements KeyListener, DataSource {
 	DataHandler datahandler;
-	int datatype = DataHandler.DTYPE_KEYPRESS_SOURCE1;
+	int[] datatypes = {DataHandler.DTYPE_KEYPRESS_SOURCE1};
 	
 	public ControlFrame(DataHandler dh) {
 		super("Control Frame");
@@ -25,7 +25,7 @@ public class ControlFrame extends JFrame implements KeyListener, DataSource {
 	}
 
 	public void keyPressed(KeyEvent e) {
-		datahandler.pushData(datatype, e);
+		datahandler.pushData(datatypes[0], e);
 		System.out.println("CF: keypressed");
 	}
 
@@ -35,7 +35,7 @@ public class ControlFrame extends JFrame implements KeyListener, DataSource {
 	public void keyTyped(KeyEvent e) {
 	}
 
-	public int getDataType() {
-		return datatype;
+	public int[] getOfferedDataTypes() {
+		return datatypes;
 	}
 }

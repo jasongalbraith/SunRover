@@ -20,11 +20,11 @@ public class Controller {
 		Scanner stdin = new Scanner(System.in);
 		boolean done = false;
 		
-		tr = new Transciever("SHS-10L4331FD", 1300);
+		tr = new Transciever("", 1300);
 		mc = new ManualCommander(this);
 		dh = new DataHandler();
 		cf = new ControlFrame(dh);
-		wd = new WebcamDisplay(cf);
+		//wd = new WebcamDisplay(cf);
 		
 		dh.addReciever(mc);
 		

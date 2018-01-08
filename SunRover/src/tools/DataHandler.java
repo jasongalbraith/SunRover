@@ -11,6 +11,7 @@ public class DataHandler {
 	public static final int DTYPE_KEYPRESS_SOURCE1 = 0;
 	public static final int DTYPE_COMMANDERSTRING = 1;
 	public static final int DTYPE_MOTORVALS = 2;
+	public static final int DTYPE_SERVOVALS = 3;
 	
 	List<DataSource> sources;
 	List<DataReciever> recievers;
@@ -27,8 +28,10 @@ public class DataHandler {
 	/*Add a source of some type of data*/
 	public void addSource(DataSource ds) {
 		sources.add(ds);
-		availabletypes.add(ds.getDataType());
-		typemap.put(ds.getDataType(), new ArrayList<DataReciever>());
+		for (int type : ds.getOfferedDataTypes()) {
+			availabletypes.add(type);
+			typemap.put(type, new ArrayList<DataReciever>());
+		}
 	}
 	
 	/*Add a receiver with some data reqs. True if data available, else false*/
@@ -50,7 +53,7 @@ public class DataHandler {
 	
 	public void pushData(int type, Object data) {
 		for (DataReciever rec : typemap.get(type)) {
-			System.out.println("DH: sent data");
+			//System.out.println("DH: sent data");
 			rec.recieveData(type, data);
 		}
 	}

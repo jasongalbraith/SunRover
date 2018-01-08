@@ -20,19 +20,25 @@ public class ManualCommander extends Commander implements DataReciever{
 	private void processKey(KeyEvent k) {
 		
 		if (k.getKeyCode() == KeyEvent.VK_UP) {
-			command = "UP";
+			command = "MOTOR_UP";
 		}
 		else if (k.getKeyCode() == KeyEvent.VK_DOWN) {
-			command = "DOWN";
+			command = "MOTOR_DOWN";
 		}
 		else if (k.getKeyCode() == KeyEvent.VK_LEFT) {
-			command = "LEFT";
+			command = "MOTOR_LEFT";
 		}
 		else if (k.getKeyCode() == KeyEvent.VK_RIGHT) {
-			command = "RIGHT";
+			command = "MOTOR_RIGHT";
 		}
 		else if (k.getKeyCode() == KeyEvent.VK_SPACE) {
-			command = "STOP";
+			command = "MOTOR_STOP";
+		}
+		else if (k.getKeyChar() == 'w') {
+			command = "SERVO_UP";
+		}
+		else if (k.getKeyChar() == 's') {
+			command = "SERVO_DOWN";
 		}
 		
 		sendCommand(command);
