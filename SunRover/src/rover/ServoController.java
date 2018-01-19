@@ -15,11 +15,9 @@ public class ServoController implements DataReciever {
 	SerialConnection maestro;	//Connection to Polulu Mini-Maestro
 	boolean good = false;	//State of connection
 	
-	public ServoController() {
-		final String[] comports = {"COM1", "COM2", "COM3", "COM4", "COM5"};
-		
+	public ServoController(String port) {		
 		//Make connection
-		maestro = new SerialConnection("COM4", 9600, 8, 1, 0);
+		maestro = new SerialConnection(port, 9600, 8, 1, 0);
 		//Wait a sec
 		try {
 			TimeUnit.MILLISECONDS.sleep(2000);

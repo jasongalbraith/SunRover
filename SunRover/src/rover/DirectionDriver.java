@@ -16,7 +16,7 @@ public class DirectionDriver extends Driver{
 	}
 
 	public void inputCommand(String s) {
-		if (s.startsWith("MOTOR")) {
+		if (s.startsWith("MOTOR_")) {
 			Arrays.fill(command[0], (byte) 1);
 			Arrays.fill(command[1], (byte) 1);
 			
@@ -47,13 +47,22 @@ public class DirectionDriver extends Driver{
 			sendMotorVals(command);
 		}
 		
-		else if (s.startsWith("SERVO")) {
+		else if (s.startsWith("SERVO_")) {
 			if (s.equals("SERVO_UP")) {
 				sendServoVals(0, 1800);
 			}
 			else if (s.equals("SERVO_DOWN")) {
 				sendServoVals(0, 200);
 			}
+		}
+		
+		else if (s.startsWith("SERVOMOTOR_")) {
+			if (s.equals("SERVOMOTOR_FORWARD"))
+				sendServoMotorVals(255);
+			else if (s.equals("SERVOMOTOR_BACKWARD"))
+				sendServoMotorVals(-255);
+			else if (s.equals("SERVOMOTOR_STOP"))
+				sendServoMotorVals(0);
 		}
 	}
 	

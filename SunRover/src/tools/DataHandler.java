@@ -12,6 +12,7 @@ public class DataHandler {
 	public static final int DTYPE_COMMANDERSTRING = 1;
 	public static final int DTYPE_MOTORVALS = 2;
 	public static final int DTYPE_SERVOVALS = 3;
+	public static final int DYTPE_SERVOMOTORVALS = 4;
 	
 	List<DataSource> sources;
 	List<DataReciever> recievers;

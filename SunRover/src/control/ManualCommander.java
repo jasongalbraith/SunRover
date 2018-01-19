@@ -40,6 +40,15 @@ public class ManualCommander extends Commander implements DataReciever{
 		else if (k.getKeyChar() == 's') {
 			command = "SERVO_DOWN";
 		}
+		else if (k.getKeyChar() == 'q') {
+			command = "SERVOMOTOR_FORWARD";
+		}
+		else if (k.getKeyChar() == 'a') {
+			command = "SERVOMOTOR_BACKWARD";
+		}
+		else if (k.getKeyChar() == 'z') {
+			command = "SERVOMOTOR_STOP";
+		}
 		
 		sendCommand(command);
 	}

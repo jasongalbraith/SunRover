@@ -10,7 +10,7 @@ import tools.DataSource;
 
 public class Driver implements DataReciever, DataSource{
 	private static final int[] REQUESTED_DATA = {DataHandler.DTYPE_COMMANDERSTRING};
-	private static final int[] OFFERED_DATA = {DataHandler.DTYPE_MOTORVALS, DataHandler.DTYPE_SERVOVALS};
+	private static final int[] OFFERED_DATA = {DataHandler.DTYPE_MOTORVALS, DataHandler.DTYPE_SERVOVALS, DataHandler.DYTPE_SERVOMOTORVALS};
 	
 	private DataHandler datahandler;
 		
@@ -29,12 +29,19 @@ public class Driver implements DataReciever, DataSource{
 			datahandler.pushData(DataHandler.DTYPE_MOTORVALS, motorvals);
 	}
 	
-	//Put out values for servo motors
+	//Put out values for servos
 	protected void sendServoVals(int channel, int pulse) {
 		int[] data = {0, channel, pulse};
 		
 		if (channel >= 0 && channel < 6 && pulse >=0 && pulse < 6001) {
 			datahandler.pushData(DataHandler.DTYPE_SERVOVALS, (Object) data);	
+		}
+	}
+	
+	//Put out values for servomotors
+	protected void sendServoMotorVals(int speed) {
+		if (speed < 256 && speed > -256) {
+			datahandler.pushData(DataHandler.DYTPE_SERVOMOTORVALS, speed);
 		}
 	}
 
