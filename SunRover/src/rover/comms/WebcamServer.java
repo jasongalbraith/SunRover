@@ -1,4 +1,4 @@
-package rover.webcam;
+package rover.comms;
 
 import java.awt.image.BufferedImage;
 import java.io.ObjectOutputStream;
@@ -9,9 +9,10 @@ import javax.swing.ImageIcon;
 import org.bytedeco.javacv.*;
 import org.bytedeco.javacpp.opencv_core.*;
 import org.bytedeco.javacv.FrameGrabber;
-import static org.bytedeco.javacpp.opencv_core.cvFlip;
 
-import control.webcam.RoverImage;
+import control.comms.RoverImage;
+
+import static org.bytedeco.javacpp.opencv_core.cvFlip;
 
 public class WebcamServer implements Runnable {
 

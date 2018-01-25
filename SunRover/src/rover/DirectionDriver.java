@@ -16,6 +16,8 @@ public class DirectionDriver extends Driver{
 	}
 
 	public void inputCommand(String s) {
+		System.out.println(s);
+		
 		if (s.startsWith("MOTOR_")) {
 			Arrays.fill(command[0], (byte) 1);
 			Arrays.fill(command[1], (byte) 1);

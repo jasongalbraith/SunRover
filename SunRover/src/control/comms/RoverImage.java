@@ -1,4 +1,4 @@
-package control.webcam;
+package control.comms;
 
 import java.awt.image.BufferedImage;
 import java.io.Serializable;

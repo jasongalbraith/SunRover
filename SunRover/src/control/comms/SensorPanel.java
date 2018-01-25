@@ -1,4 +1,4 @@
-package control.webcam;
+package control.comms;
 
 import java.awt.Graphics;
 import javax.swing.JPanel;

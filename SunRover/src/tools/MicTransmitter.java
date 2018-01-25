@@ -1,7 +1,5 @@
-package control.webcam;
+package tools;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;                                                                                                                                             
@@ -13,15 +11,16 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.TargetDataLine;
 
 
-public class SunRoverAudioInput implements Runnable, KeyListener {
+public class MicTransmitter implements Runnable {
 
-	Socket client;
 	int threadToRun = 0;
 	int bufferSize;
 	byte[] buffer1;
 	byte[] buffer2;
 	int count1;
 	int count2;
+	int available;
+	int readcount;
 	boolean running;
 	boolean recording;
 	TargetDataLine line;
@@ -31,9 +30,8 @@ public class SunRoverAudioInput implements Runnable, KeyListener {
 	boolean bufferFull = false;
 	boolean keyPressed = false;
 
-	public SunRoverAudioInput(Socket socket) {
+	public MicTransmitter(OutputStream ostream) {
 		try {
-			client = socket;
 			bufferSize = (int) format.getSampleRate() * format.getFrameSize();
 			DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
 			line = (TargetDataLine) AudioSystem.getLine(info);
@@ -41,7 +39,7 @@ public class SunRoverAudioInput implements Runnable, KeyListener {
 			line.start();
 			buffer1 = new byte[bufferSize];
 			buffer2 = new byte[bufferSize];
-			outputStream = new BufferedOutputStream(socket.getOutputStream());
+			outputStream = new BufferedOutputStream(ostream);
 			Thread t = new Thread(this);
 			threadToRun = 0;
 			t.start();
@@ -53,10 +51,20 @@ public class SunRoverAudioInput implements Runnable, KeyListener {
 	
 	public void run() {
 		try {
+			while (running) {
+				available = line.available();
+				readcount = line.read(buffer1, 0, available);
+				if (readcount == -1) {
+					running = false;
+				}
+				else {
+					outputStream.write(buffer1, 0, available);
+				}
+			}
+			
+			/*
 			if (threadToRun == 0) {
 				threadToRun = 1;
-				Thread t = new Thread(this);
-				t.start();
 				while (running) {
 					if (bufferFull == false) {
 						count1 = line.read(buffer1, 0, buffer1.length);
@@ -81,7 +89,7 @@ public class SunRoverAudioInput implements Runnable, KeyListener {
 			}
 			outputStream.write(buffer1, 0, count2);
 			buffer1 = new byte[bufferSize];
-			buffer2 = new byte[bufferSize];
+			buffer2 = new byte[bufferSize];*/
 		} catch (IOException e) {
 			System.exit(-1);
 			System.out.println("exit");
@@ -90,24 +98,4 @@ public class SunRoverAudioInput implements Runnable, KeyListener {
 			e.printStackTrace();
 		}
 	}
-
-	public void keyPressed(KeyEvent key) {
-		if (key.getKeyChar() == ' ' && keyPressed == false) {
-			System.out.println("Recording!");
-			keyPressed = true;
-			recording = true;
-		}
-	}
-
-	public void keyReleased(KeyEvent key) {
-		if (key.getKeyChar() == ' ' && keyPressed == true) {
-			System.out.println("Stopped recording!");
-			keyPressed = false;
-			recording = false;
-		}
-	}
-
-	public void keyTyped(KeyEvent key) {
-	}
-
 }

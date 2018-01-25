@@ -1,4 +1,4 @@
-package control.webcam;
+package tools;
 
 import java.io.InputStream;
 import java.net.Socket;
@@ -10,16 +10,16 @@ import javax.sound.sampled.DataLine;
 import javax.sound.sampled.SourceDataLine;
 
 
-public class SunRoverAudioOutput implements Runnable {
+public class AudioPlayer implements Runnable {
 	
 	byte[] buffer1 = new byte[16000];
 	boolean running = true;
 	boolean bufferToPlay = false;
-	Socket client;
+	InputStream in;
 	
-	public SunRoverAudioOutput(Socket socket) {
+	public AudioPlayer(InputStream istream) {
+		in = istream;
 		try {
-			client = socket;
 			Thread t = new Thread(this);
 			t.start();
 		} catch (Exception ex) {
@@ -29,7 +29,6 @@ public class SunRoverAudioOutput implements Runnable {
 	
 	public void run() {
 		try {
-			InputStream in = client.getInputStream();
 			AudioFormat format = new AudioFormat(8000.0f, 16, 1, true, true);
 			AudioInputStream ais = new AudioInputStream(in, format, buffer1.length / format.getFrameSize());
 			DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
@@ -49,7 +48,6 @@ public class SunRoverAudioOutput implements Runnable {
 				nBytesRead = 0;
 				ais = new AudioInputStream(in, format, buffer1.length / format.getFrameSize());
 			}
-			client.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.exit(-1);

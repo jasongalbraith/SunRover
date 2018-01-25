@@ -1,4 +1,4 @@
-package control.webcam;
+package control.comms;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

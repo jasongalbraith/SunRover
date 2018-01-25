@@ -1,4 +1,4 @@
-package control.webcam;
+package control.comms;
 
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -126,11 +126,10 @@ public class WebcamDisplay implements Runnable, KeyListener {
 			t.setPriority(1);
 			t.start();
 		}
-		/* Audio Creation */
+		/* Audio Creation
 		if (AUDIO_ENABLED) {
 			try {
-				// :)
-				Socket audio = new Socket(IP_WEBCAM, 1234);
+				Socket audio = new Socket(IP_WEBCAM, 1302);
 				SunRoverAudioOutput srao = new SunRoverAudioOutput(audio);
 				SunRoverAudioInput srai = new SunRoverAudioInput(audio);
 				ipanel.getSlider().addKeyListener(srai);
@@ -139,7 +138,7 @@ public class WebcamDisplay implements Runnable, KeyListener {
 				System.out.println("Could not connect to audio ip");
 				System.exit(1);
 			}	
-		}
+		}*/
 		/*Webcam Creation */
 		if (WEBCAM_ENABLED) {
 			try {
