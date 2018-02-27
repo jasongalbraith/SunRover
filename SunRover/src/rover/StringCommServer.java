@@ -2,13 +2,16 @@ package rover;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import tools.DataHandler;
 import tools.DataSource;
+import tools.IOStreamPack;
 
 public class StringCommServer extends Thread implements DataSource {
 	
@@ -17,12 +20,13 @@ public class StringCommServer extends Thread implements DataSource {
 	Server server;
 	PrintWriter out;
 	BufferedReader in;
+	IOStreamPack iopack;
 	Queue<String> buffer = new LinkedList<String>();
 	boolean running = true;
 	boolean good;
 	
 	public StringCommServer(int port) {
-		server = new Server(port);
+		server = new Server(port, iopack);
 	}
 	
 	//State of commserver
@@ -83,11 +87,11 @@ public class StringCommServer extends Thread implements DataSource {
 			
 			while (!server.isGood());
 			
-			in = new BufferedReader(new InputStreamReader(server.getInputStream()));
-			out = new PrintWriter(server.getOutputStream());
+			in = new BufferedReader(new InputStreamReader(iopack.getInputStream()));
+			out = new PrintWriter(iopack.getOutputStream());
 		}
 	}
-	
+
 	public void close() {
 		server.close();
 	}

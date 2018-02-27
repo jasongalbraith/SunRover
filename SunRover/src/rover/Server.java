@@ -4,27 +4,27 @@
 
 package rover;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.ArrayList;
+import java.util.List;
 
-import tools.DataHandler;
-import tools.DataSource;
+import tools.IOStreamPack;
+import tools.StateHolder;
+import tools.StateListener;
 
-public class Server extends Thread {
+public class Server implements Runnable, StateHolder {
 		
 	ServerSocket serversocket;
 	Socket clientsocket;
+	IOStreamPack iopack;
+	List<StateListener> statelisteners = new ArrayList<StateListener>();
 	boolean good = false;
 	
-	public Server(int port) {
+	public Server(int port, IOStreamPack iopack) {
 		//Try to open a port and wait until connected
 		try {
 			serversocket = new ServerSocket(port);
@@ -32,12 +32,15 @@ public class Server extends Thread {
 			e.printStackTrace();
 			good = false;
 		}
+		
+		this.iopack = iopack;
+		
+		Thread t = new Thread(this);
+		t.start();
 	}
 	
 	//State of connection
 	public boolean isGood() {
-		if (clientsocket == null || clientsocket.isClosed())
-			good = false;
 		return good;
 	}
 	
@@ -53,52 +56,35 @@ public class Server extends Thread {
 		return true;
 	}
 	
-	//Get input stream
-	public InputStream getInputStream() {
-		InputStream is = null;
-		
-		if (clientsocket == null) {
-			good = false;
-			return null;
-		}
-
-		try {
-			is = clientsocket.getInputStream();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return is;
-	}
-	
-	//Get output stream
-	public OutputStream getOutputStream() {
-		OutputStream os = null;
-		
-		if (clientsocket == null) {
-			good = false;
-			return null;
-		}
-		
-		try {
-			os = clientsocket.getOutputStream();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return os;
-	}
-	
 	//Wait for input
 	public void run() {		
 		while (clientsocket == null || clientsocket.isClosed()) {
+			setState(false);
 			try {
 				clientsocket = serversocket.accept();
-				good = true;
+				System.out.println(iopack == null);
+				iopack.setInputStream(clientsocket.getInputStream());
+				iopack.setOutputStream(clientsocket.getOutputStream());
+				setState(true);
 				System.out.println("Connected");
 			} catch (IOException e) {
+				System.out.println("SERVER: Error connecting to client");
 				e.printStackTrace();
 			}
 		}
+	}
+
+	private void setState(boolean state) {
+		if (good != state) {
+			good = state;
+		
+			for (StateListener listener: statelisteners)
+				listener.updateState(isGood());
+		}
+	}
+	
+	@Override
+	public void addStateListener(StateListener listener) {
+		statelisteners.add(listener);
 	}
 }

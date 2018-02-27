@@ -8,6 +8,7 @@ import java.net.Socket;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
+import javax.sound.sampled.LineListener;
 import javax.sound.sampled.TargetDataLine;
 
 
@@ -53,12 +54,16 @@ public class MicTransmitter implements Runnable {
 		try {
 			while (running) {
 				available = line.available();
+				if (available == 0)
+					continue;
+				
 				readcount = line.read(buffer1, 0, available);
 				if (readcount == -1) {
 					running = false;
 				}
-				else {
+				else if (readcount > 0) {
 					outputStream.write(buffer1, 0, available);
+					//System.out.println("MICTRANSMITTER: Wrote data");
 				}
 			}
 			

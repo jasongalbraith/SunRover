@@ -31,7 +31,7 @@ public class ClientAudioHandler {
 		}
 		
 		mt = new MicTransmitter(ostream);
-		ap = new AudioPlayer(istream);
+		//ap = new AudioPlayer(istream);
 	}
 
 }
