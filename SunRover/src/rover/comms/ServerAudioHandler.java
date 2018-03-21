@@ -1,7 +1,6 @@
-package rover;
+package rover.comms;
 
-import java.io.InputStream;
-import java.io.OutputStream;
+import rover.Server;
 import tools.AudioPlayer;
 import tools.IOStreamPack;
 import tools.MicTransmitter;
@@ -25,7 +24,7 @@ public class ServerAudioHandler implements StateListener {
 		if (state == true) {
 			System.out.println("SAH: Server good. Making AudioPlayer");			
 			ap = new AudioPlayer(io);
+			mt = new MicTransmitter(io);
 		}
 	}
-	
 }

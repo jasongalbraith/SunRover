@@ -1,6 +1,6 @@
 package testing;
 
-import rover.ServerAudioHandler;
+import rover.comms.ServerAudioHandler;
 
 public class ServerAudioTest {
 

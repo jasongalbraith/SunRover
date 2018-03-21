@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import tools.AudioPlayer;
+import tools.IOStreamPack;
 import tools.MicTransmitter;
 
 public class ClientAudioHandler {
@@ -14,6 +15,7 @@ public class ClientAudioHandler {
 	Socket client;
 	InputStream istream;
 	OutputStream ostream;
+	IOStreamPack iopack;
 	MicTransmitter mt;
 	AudioPlayer ap;
 	
@@ -22,6 +24,7 @@ public class ClientAudioHandler {
 			client = new Socket(host, 1302);
 			istream = client.getInputStream();
 			ostream = client.getOutputStream();
+			iopack = new IOStreamPack(istream, ostream);
 		} catch (UnknownHostException e) {
 			System.out.println("CAH: Unknown audio host");
 			e.printStackTrace();
@@ -30,8 +33,8 @@ public class ClientAudioHandler {
 			e.printStackTrace();
 		}
 		
-		mt = new MicTransmitter(ostream);
-		//ap = new AudioPlayer(istream);
+		mt = new MicTransmitter(iopack);
+		ap = new AudioPlayer(iopack);
 	}
 
 }

@@ -31,7 +31,7 @@ public class MicTransmitter implements Runnable {
 	boolean bufferFull = false;
 	boolean keyPressed = false;
 
-	public MicTransmitter(OutputStream ostream) {
+	public MicTransmitter(IOStreamPack io) {
 		try {
 			bufferSize = (int) format.getSampleRate() * format.getFrameSize();
 			DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
@@ -40,7 +40,7 @@ public class MicTransmitter implements Runnable {
 			line.start();
 			buffer1 = new byte[bufferSize];
 			buffer2 = new byte[bufferSize];
-			outputStream = new BufferedOutputStream(ostream);
+			outputStream = new BufferedOutputStream(io.getOutputStream());
 			Thread t = new Thread(this);
 			threadToRun = 0;
 			t.start();

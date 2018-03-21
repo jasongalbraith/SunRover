@@ -8,6 +8,14 @@ public class IOStreamPack {
 	private OutputStream os;
 	
 	
+	public IOStreamPack() {
+		this.is = null;
+		this.os = null;
+	}
+	public IOStreamPack(InputStream istream, OutputStream ostream) {
+		this.is = istream;
+		this.os = ostream;
+	}
 	public InputStream getInputStream() {
 		return is;
 	}

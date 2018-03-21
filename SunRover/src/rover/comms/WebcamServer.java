@@ -34,9 +34,9 @@ public class WebcamServer implements Runnable {
 	boolean connected = false;
 	
 
-	public WebcamServer() {
+	public WebcamServer(int port) {
 		try {
-			server = new ServerSocket(1301);
+			server = new ServerSocket(port);
 			System.out.println("Waiting...");
 			Thread t = new Thread(this);
 			t.start();

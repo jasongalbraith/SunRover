@@ -6,25 +6,31 @@ package control;
 
 import java.util.Scanner;
 
+import control.comms.ClientAudioHandler;
 import control.comms.WebcamDisplay;
 import tools.DataHandler;
 
 public class Controller {
+	public static final String ROVER_HOSTNAME = "172.23.52.194";//"SHS-10L4331FD";
+	
 	ControlFrame cf;
 	Transciever tr;
 	ManualCommander mc;
 	DataHandler dh;
 	WebcamDisplay wd;
+	ClientAudioHandler ca;
 
 	public Controller() {
 		Scanner stdin = new Scanner(System.in);
 		boolean done = false;
 		
-		tr = new Transciever("sharky", 1300);
+		tr = new Transciever(ROVER_HOSTNAME, 1300);
 		mc = new ManualCommander(this);
 		dh = new DataHandler();
 		cf = new ControlFrame(dh);
 		wd = new WebcamDisplay(cf);
+		ca = new ClientAudioHandler(ROVER_HOSTNAME);
+		
 		
 		dh.addReciever(mc);
 		
